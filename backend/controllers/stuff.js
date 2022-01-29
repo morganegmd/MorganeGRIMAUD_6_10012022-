@@ -1,85 +1,44 @@
 const Thing = require("../models/thing");
+const multer = require("multer");
+const User = require("../models/user");
 
-exports.createThing = (req, res, next) => {
-  const thing = new Thing({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId,
-  });
-  thing
-    .save()
-    .then(() => {
-      res.status(201).json({
-        message: "Post saved successfully!",
-      });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "--" + file.originalname);
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype.includes("jpeg") ||
+    file.mimetype.includes("png") ||
+    file.mimetype.includes("jpg")
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
 };
 
-exports.getOneThing = (req, res, next) => {
-  Thing.findOne({
-    _id: req.params.id,
-  })
-    .then((thing) => {
-      res.status(200).json(thing);
-    })
-    .catch((error) => {
-      res.status(404).json({
-        error: error,
-      });
-    });
+const updateAnUserImage = async (req, res) => {
+  const id = req.params._id;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
+  const path = req.file.path.replace(/\\/g, "/");
+
+  await User.findByIdAndUpdate(
+    id,
+    (req.body = { ProfilePicture: "http://localhost:5000/" + path }),
+    { new: true }
+  );
+  res.json(updateAnUser);
 };
 
-exports.modifyThing = (req, res, next) => {
-  const thing = new Thing({
-    _id: req.params.id,
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId,
-  });
-  Thing.updateOne({ _id: req.params.id }, thing)
-    .then(() => {
-      res.status(201).json({
-        message: "Thing updated successfully!",
-      });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
-};
+let upload = multer({ storage: storage, fileFilter: fileFilter });
 
-exports.deleteThing = (req, res, next) => {
-  Thing.deleteOne({ _id: req.params.id })
-    .then(() => {
-      res.status(200).json({
-        message: "Deleted!",
-      });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
-};
-
-exports.getAllStuff = (req, res, next) => {
-  Thing.find()
-    .then((things) => {
-      res.status(200).json(things);
-    })
-    .catch((error) => {
-      res.status(400).json({
-        error: error,
-      });
-    });
-};
+module.exports = multer("ProfilePicture", upload);

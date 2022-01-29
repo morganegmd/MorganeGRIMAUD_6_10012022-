@@ -1,8 +1,16 @@
+/*npm install -g @angular/cli@7.0.2
+npm install node-sass@4.14.1
+Check des versions 
+node -v : 14.0.0
+ng v : 7.0.2
+npm node-sass -v : 6.14.4*/
+
 //Insertion
 
 const http = require("http");
 const app = require("./app");
 
+/*Envoi un port valide */
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -13,8 +21,12 @@ const normalizePort = (val) => {
     return port;
   }
   return false;
+  console.log(normalizePort);
 };
+
 // la fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne ;
+
+/*Recherche des différentes erreurs et les traites*/
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
@@ -38,7 +50,7 @@ const errorHandler = (error) => {
       throw error;
   }
 };
-// La fonction errorHandler  recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur ;
+// La fonction errorHandler recherche les différentes erreurs et les gère de manière appropriée. Elle est ensuite enregistrée dans le serveur ;
 
 const server = http.createServer(app);
 

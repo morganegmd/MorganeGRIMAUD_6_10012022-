@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 
+/*Connexion à Mongoose*/
 mongoose
   .connect(
     `mongodb+srv://morganegmd33:Momochani33@cluster0.i7rhn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
@@ -12,9 +13,12 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
+//Middleware pour extraire le corps JSON afin de gérer la requête POST (frontend)
 app.use(express.json());
-//Pour gérer la requête POST venant de l'application front-end, on a besoin d'en extraire le corps JSON.
+app.use(express.static("./public"));
+app.use("/uploads", express.static("uploads"));
 
+/*Correction erreurs CORS*/
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
