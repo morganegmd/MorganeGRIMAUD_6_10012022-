@@ -1,10 +1,3 @@
-/*npm install -g @angular/cli@7.0.2
-npm install node-sass@4.14.1
-Check des versions 
-node -v : 14.0.0
-ng v : 7.0.2
-npm node-sass -v : 6.14.4*/
-
 //Insertion
 
 const http = require("http");

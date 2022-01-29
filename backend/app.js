@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const path = require("path");
+
 const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 
@@ -15,8 +17,6 @@ mongoose
 
 //Middleware pour extraire le corps JSON afin de gérer la requête POST (frontend)
 app.use(express.json());
-app.use(express.static("./public"));
-app.use("/uploads", express.static("uploads"));
 
 /*Correction erreurs CORS*/
 app.use((req, res, next) => {
@@ -35,6 +35,7 @@ app.use((req, res, next) => {
 d'ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin , X-Requested-With , etc.) ;
 d'envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).*/
 
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/stuff", stuffRoutes);
 app.use("/api/auth", userRoutes);
 
