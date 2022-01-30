@@ -18,6 +18,7 @@ exports.createSauce = (req, res, next) => {
     .save()
     .then(() => res.status(201).json({ message: "Sauce enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
+  console.error(this.createSauce);
 };
 
 exports.modifySauce = (req, res, next) => {
