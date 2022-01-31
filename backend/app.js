@@ -1,7 +1,7 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+const helmet = require("helmet");
 
 const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
@@ -15,7 +15,13 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-//Middleware pour extraire le corps JSON afin de gérer la requête POST (frontend)
+//App express
+const app = express();
+
+//Sécuriser les requêtes HTTP
+app.use(helmet());
+
+//Extraire le corps JSON afin de gérer la requête POST (frontend)
 app.use(express.json());
 
 /*Correction erreurs CORS*/
