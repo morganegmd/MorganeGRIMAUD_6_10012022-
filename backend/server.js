@@ -2,6 +2,7 @@
 
 const http = require("http");
 const app = require("./app");
+const express = require("express");
 
 /*Envoi un port valide */
 const normalizePort = (val) => {

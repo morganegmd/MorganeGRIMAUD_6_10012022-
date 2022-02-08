@@ -2,15 +2,14 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
-
-const stuffRoutes = require("./routes/stuff");
+require("dotenv").config();
+const stuffRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
 
 /*Connexion à Mongoose*/
 mongoose
   .connect(
-    `mongodb+srv://morganegmd33:Momochani33@cluster0.i7rhn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PW}@cluster0.i7rhn.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
@@ -36,7 +35,7 @@ d'ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin
 d'envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).*/
 
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/stuff", stuffRoutes);
+app.use("/api/sauces", sauceRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;

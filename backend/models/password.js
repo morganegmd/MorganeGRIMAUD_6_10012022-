@@ -1,8 +1,8 @@
 const passWord = require("password-validator");
 
-const passwordSchema = new PasswordValidator();
+const passwordSchema = new passWord();
 
-passWordSchema
+passwordSchema
   .is()
   .min(5)
   .is()
