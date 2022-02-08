@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
-// on importe les controllers user
-const sauceCtrl = require("../controllers/sauce");
+
 const auth = require("../middleware/auth");
 const multer = require("../middleware/multer-config");
-router.post("/", auth, multer, sauceCtrl.addSauce);
-router.post("/:id/like", auth, sauceCtrl.likeDislikeSauce);
-router.get("/", auth, sauceCtrl.getAllSauces);
-router.get("/:id", auth, sauceCtrl.getOneSauce);
-router.delete("/:id", auth, sauceCtrl.deleteOneSauce);
-router.put("/:id", auth, multer, sauceCtrl.updateOneSauce);
+
+const stuffCtrl = require("../controllers/sauce");
+
+router.get("/:id", auth, stuffCtrl.getOneSauce);
+router.get("/", auth, stuffCtrl.getAllSauces);
+router.post("/", auth, multer, stuffCtrl.createSauce);
+router.put("/:id", auth, multer, stuffCtrl.modifySauce);
+router.delete("/:id", auth, stuffCtrl.deleteSauce);
+router.post("/:id/like", auth, stuffCtrl.sauceLikes);
 
 module.exports = router;

@@ -1,9 +1,13 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+<<<<<<< HEAD
 require("dotenv").config();
 const stuffRoutes = require("./routes/sauce");
+=======
+
+const sauceRoutes = require("./routes/sauce");
+>>>>>>> 642f23bd16daa34fa6333fdf9bd60e2f301d37a0
 const userRoutes = require("./routes/user");
 
 /*Connexion à Mongoose*/
@@ -14,7 +18,10 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-//Middleware pour extraire le corps JSON afin de gérer la requête POST (frontend)
+//App express
+const app = express();
+
+//Extraire le corps JSON afin de gérer la requête POST (frontend)
 app.use(express.json());
 
 /*Correction erreurs CORS*/
@@ -35,7 +42,11 @@ d'ajouter les headers mentionnés aux requêtes envoyées vers notre API (Origin
 d'envoyer des requêtes avec les méthodes mentionnées ( GET ,POST , etc.).*/
 
 app.use("/images", express.static(path.join(__dirname, "images")));
+<<<<<<< HEAD
 app.use("/api/sauces", sauceRoutes);
+=======
+app.use("/api/sauce", sauceRoutes);
+>>>>>>> 642f23bd16daa34fa6333fdf9bd60e2f301d37a0
 app.use("/api/auth", userRoutes);
 
 module.exports = app;

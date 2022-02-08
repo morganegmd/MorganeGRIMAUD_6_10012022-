@@ -78,12 +78,18 @@ exports.getAllSauces = (req, res, next) => {
     });
 };
 
+<<<<<<< HEAD:backend/controllers/sauce.js
 exports.likeDislikeSauce = (req, res, next) => {
   let like = req.body.like;
   let userId = req.body.userId;
   let sauceId = req.params.id;
 
   switch (like) {
+=======
+exports.sauceLikes = (req, res, next) => {
+  // Like
+  switch (req.body.like) {
+>>>>>>> 642f23bd16daa34fa6333fdf9bd60e2f301d37a0:backend/controllers/stuff.js
     case 1:
       Sauce.updateOne(
         { _id: sauceId },
@@ -116,7 +122,11 @@ exports.likeDislikeSauce = (req, res, next) => {
         })
         .catch((error) => res.status(404).json({ error }));
       break;
+<<<<<<< HEAD:backend/controllers/sauce.js
 
+=======
+    // Dislike
+>>>>>>> 642f23bd16daa34fa6333fdf9bd60e2f301d37a0:backend/controllers/stuff.js
     case -1:
       Sauce.updateOne(
         { _id: sauceId },

@@ -15,7 +15,6 @@ const normalizePort = (val) => {
     return port;
   }
   return false;
-  console.log(normalizePort);
 };
 
 // la fonction normalizePort renvoie un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaîne ;
