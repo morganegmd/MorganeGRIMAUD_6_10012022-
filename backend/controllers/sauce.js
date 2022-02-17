@@ -79,6 +79,11 @@ exports.getAllSauces = (req, res, next) => {
 };
 
 exports.sauceLikes = (req, res, next) => {
+  console.log(req.params.id);
+  console.log(req.body);
+
+  const sauceId = req.params.id;
+  const userId = req.body.userId;
   // Like
   switch (req.body.like) {
     case 1:
